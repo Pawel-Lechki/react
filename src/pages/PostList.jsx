@@ -1,5 +1,6 @@
 import React from "react"
 import { useEffect, useState } from "react"
+import PostItem from "../components/PostItem"
 
 const PostList = () => {
   const [postList, setPostList] = useState([])
@@ -10,7 +11,10 @@ const PostList = () => {
   }, [])
   return (
     <div>
-      <pre>{JSON.stringify(postList, undefined, 2)}</pre>
+      {/* <pre>{JSON.stringify(postList, undefined, 2)}</pre> */}
+      {postList.map((post) => (
+        <PostItem key={post.id} post={post} />
+      ))}
     </div>
   )
 }
