@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
 const PostItem = ({ post, onDelete = () => {} }) => {
   function onDeleteClick(post) {
@@ -21,6 +22,10 @@ const PostItem = ({ post, onDelete = () => {} }) => {
         <h5 className="card-title">{post.title}</h5>
         <p className="card-text">{post.body}</p>
         <div className="text-end">
+          <Link to={`/edit/${post.id}`} className="btn btn-primary me-2">
+            Edit
+          </Link>
+
           <button
             className="btn btn-danger"
             onClick={() => onDeleteClick(post)}

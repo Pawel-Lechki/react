@@ -1,5 +1,6 @@
 import React from "react"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import PostItem from "../components/PostItem"
 
 const PostList = () => {
@@ -15,12 +16,19 @@ const PostList = () => {
   }
 
   return (
-    <div>
-      {/* <pre>{JSON.stringify(postList, undefined, 2)}</pre> */}
-      {postList.map((post) => (
-        <PostItem key={post.id} post={post} onDelete={onDelete} />
-      ))}
-    </div>
+    <>
+      <p>
+        <Link to="/new" className="btn btn-success">
+          Add new
+        </Link>
+      </p>
+      <div>
+        {/* <pre>{JSON.stringify(postList, undefined, 2)}</pre> */}
+        {postList.map((post) => (
+          <PostItem key={post.id} post={post} onDelete={onDelete} />
+        ))}
+      </div>{" "}
+    </>
   )
 }
 

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
+import router from "../router"
 
 const PostForm = () => {
   const [model, setModel] = useState({
@@ -19,10 +21,39 @@ const PostForm = () => {
       .then((post) => setModel(post))
   }, [])
 
+  function onSubmit(ev) {
+    ev.preventDefault()
+
+    if (model.id) {
+      fetch("https://jsonplaceholder.typicode.com/posts/" + model.id, {
+        method: "PUT",
+        body: JSON.stringify(model),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          router.navigate("/")
+        })
+    } else {
+      fetch("https://jsonplaceholder.typicode.com/posts/", {
+        method: "POST",
+        body: JSON.stringify(model.value),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          router.navigate("/")
+        })
+    }
+  }
+
   return (
     <div>
+      <p>
+        <Link to="/" class="btn btn-outline-secondary">
+          Go back to list
+        </Link>
+      </p>
       <pre>{JSON.stringify(model, undefined, 2)}</pre>
-      <form>
+      <form onSubmit={onSubmit}>
         <h1>{model.id ? "Edit Post" : "Create new Post"}</h1>
         <div className="mb-3">
           <input
